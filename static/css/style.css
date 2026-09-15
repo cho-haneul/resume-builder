@@ -1,0 +1,348 @@
+/* ==========================================================================
+   AI Resume & Portfolio Builder - 포레스트(숲 & 초록) 테마 스타일시트
+   ========================================================================== */
+
+/* 1. 기본 초기화 및 폰트 설정 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f1f6f2; /* 싱그러운 연한 숲빛 배경 */
+    color: #2b3a33;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 2. 레이아웃 컨테이너 */
+.container {
+    width: 92%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* 3. 헤더 (고화질 숲 이미지 + 딥 그린 그라데이션 오버레이) */
+.header {
+    background: linear-gradient(135deg, rgba(18, 48, 38, 0.88) 0%, rgba(45, 106, 79, 0.82) 100%),
+                url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    color: #ffffff;
+    padding: 45px 0;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(27, 67, 50, 0.15);
+    border-bottom: 3px solid #52b788;
+}
+
+.header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header p {
+    font-size: 1.05rem;
+    color: #e8f5ec;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* 4. 메인 콘텐츠 (좌우 2단 배치) */
+.main-content {
+    display: flex;
+    gap: 28px;
+    margin: 35px auto;
+    flex: 1;
+}
+
+/* 좌측 폼 섹션 & 우측 결과 섹션 (모던 포레스트 카드) */
+.form-section, .result-section {
+    background-color: #ffffff;
+    padding: 28px;
+    border-radius: 14px;
+    border: 1px solid #d8ebd9;
+    box-shadow: 0 6px 20px rgba(45, 106, 79, 0.06);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-section h2, .result-section h2 {
+    font-size: 1.35rem;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e5f2e8;
+    color: #1b4332; /* 딥 포레스트 그린 */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 5. 입력 폼 스타일 */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: #2d5a44;
+}
+
+.required {
+    color: #d9534f;
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #cfe0d3;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background-color: #fafdfa;
+    transition: all 0.2s ease-in-out;
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #40916c;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3.5px rgba(64, 145, 108, 0.18);
+}
+
+textarea {
+    resize: vertical;
+    line-height: 1.6;
+}
+
+/* 라디오 버튼 그룹 (자연 친화적 카드 스타일) */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f4faf5;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #d6ebd9;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.92rem;
+    color: #2b3a33;
+    padding: 6px 4px;
+    border-radius: 6px;
+    transition: background-color 0.15s;
+}
+
+.radio-label:hover {
+    background-color: #e6f4ea;
+}
+
+.radio-label input[type="radio"] {
+    accent-color: #2d6a4f;
+    width: 17px;
+    height: 17px;
+}
+
+/* 6. 버튼 스타일 */
+.btn {
+    display: inline-block;
+    font-weight: 600;
+    padding: 13px 22px;
+    border-radius: 9px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.25s ease;
+    font-size: 1rem;
+}
+
+/* 메인 초록색 버튼 (포레스트 그라데이션) */
+.btn-primary {
+    background: linear-gradient(135deg, #2d6a4f 0%, #1b4332 100%);
+    color: #ffffff;
+    width: 100%;
+    margin-top: 12px;
+    box-shadow: 0 4px 14px rgba(45, 106, 79, 0.28);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #245841 0%, #153527 100%);
+    box-shadow: 0 6px 18px rgba(45, 106, 79, 0.35);
+    transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+    background: #a3c4b0;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 보조 버튼 (연한 민트 그린) */
+.btn-secondary {
+    background-color: #e8f5ec;
+    color: #2d6a4f;
+    font-size: 0.88rem;
+    padding: 9px 15px;
+    border: 1px solid #c7e6cf;
+}
+
+.btn-secondary:hover {
+    background-color: #d6eedf;
+    color: #1b4332;
+}
+
+/* 7. 결과 영역 및 액션 버튼 */
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e5f2e8;
+    padding-bottom: 12px;
+}
+
+.result-header h2 {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.result-placeholder {
+    padding: 55px 25px;
+    text-align: center;
+    color: #728d7d;
+    border: 2px dashed #c9e0ce;
+    border-radius: 10px;
+    margin-top: 10px;
+    background-color: #fbfdfb;
+}
+
+.result-textarea {
+    width: 100%;
+    flex: 1;
+    min-height: 420px;
+    padding: 18px;
+    border: 1.5px solid #d4e7d7;
+    border-radius: 10px;
+    background-color: #fafdfb;
+    color: #1f2e26;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 0.93rem;
+    line-height: 1.75;
+    white-space: pre-wrap;
+}
+
+.result-textarea:focus {
+    outline: none;
+    border-color: #52b788;
+    background-color: #ffffff;
+}
+
+/* 8. 로딩 상태 스피너 (포레스트 테마) */
+.loading-box {
+    text-align: center;
+    padding: 55px 20px;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 18px;
+    border: 4px solid #d8ebd9;
+    border-top: 4px solid #2d6a4f;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-box p {
+    color: #2d6a4f;
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.loading-box small {
+    color: #60806e;
+    font-weight: normal;
+}
+
+/* 9. 오류 알림 박스 */
+.alert {
+    padding: 13px 18px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+    font-size: 0.92rem;
+}
+
+.alert-error {
+    background-color: #fdf2f2;
+    color: #c53030;
+    border: 1px solid #fecaca;
+}
+
+/* 10. 푸터 */
+.footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 0.88rem;
+    color: #507160;
+    border-top: 1px solid #dbebe0;
+    background-color: #ffffff;
+}
+
+/* 반응형 모바일 대응 (850px 이하) */
+@media (max-width: 850px) {
+    .main-content {
+        flex-direction: column;
+        margin: 20px auto;
+        gap: 20px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 0 12px;
+    }
+
+    .header {
+        padding: 30px 15px;
+    }
+
+    .header h1 {
+        font-size: 1.7rem;
+    }
+
+    .form-section, .result-section {
+        padding: 20px 16px;
+    }
+
+    .btn-primary {
+        padding: 15px;
+        font-size: 1.05rem;
+    }
+}

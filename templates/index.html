@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume & Portfolio Builder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>🌲 AI Resume & Portfolio Builder</h1>
+            <p>푸른 숲의 활력과 함께하는 Gemini AI 맞춤형 이력서 & 포트폴리오 생성기 🌿</p>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        <!-- 왼쪽: 사용자 입력 폼 -->
+        <section class="form-section">
+            <h2>📝 정보 입력</h2>
+            <form id="resumeForm">
+                <div class="form-group">
+                    <label for="name">이름 <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" placeholder="예: 홍길동" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="jobTitle">지원 직무 <span class="required">*</span></label>
+                    <input type="text" id="jobTitle" name="job_title" placeholder="예: 백엔드 개발자, 데이터 엔지니어" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="tone">문체 / 톤앤매너</label>
+                    <select id="tone" name="tone">
+                        <option value="전문적이고 신뢰감 있는">전문적이고 신뢰감 있는 (추천)</option>
+                        <option value="자신감 넘치고 주도적인">자신감 넘치고 주도적인</option>
+                        <option value="정중하고 차분한">정중하고 차분한</option>
+                        <option value="간결하고 담백한">간결하고 담백한</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>프롬프트 생성 모드 선택</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="prompt_type" value="A" checked>
+                            <span class="radio-custom"></span>
+                            <strong>Mode A: 일반 모드</strong> (기본에 충실한 표준 초안)
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="prompt_type" value="B">
+                            <span class="radio-custom"></span>
+                            <strong>Mode B: 심화 모드</strong> (STAR 기법 기반 역량 강화)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>이력서 스타일 선택 (3종)</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="resume_style" value="classic" checked>
+                            <span class="radio-custom"></span>
+                            <strong>🏛️ 클래식 / 전통형</strong> (대기업·공기업 맞춤, 단정하고 정갈한 서식)
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="resume_style" value="tech">
+                            <span class="radio-custom"></span>
+                            <strong>🚀 테크 & 스타트업형</strong> (IT·개발자 맞춤, 수치화된 성과 및 기술 중심)
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="resume_style" value="creative">
+                            <span class="radio-custom"></span>
+                            <strong>🎨 크리에이티브 / 스토리텔링형</strong> (기획·마케팅 맞춤, 문제 해결 여정 및 인사이트)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">경력 사항 <span class="required">*</span></label>
+                    <textarea id="experience" name="experience" rows="4" placeholder="회사명, 근무 기간, 주요 담당 업무 등을 자유롭게 적어주세요. (신입인 경우 인턴, 대외활동, 동아리 등)" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="projects">프로젝트 경험 <span class="required">*</span></label>
+                    <textarea id="projects" name="projects" rows="5" placeholder="프로젝트명, 사용 기술 스택, 담당 역할, 문제 해결 경험 및 성과 등을 적어주세요." required></textarea>
+                </div>
+
+                <button type="submit" id="generateBtn" class="btn btn-primary">
+                    ✨ AI 이력서 & 포트폴리오 생성하기
+                </button>
+            </form>
+        </section>
+
+        <!-- 오른쪽: 결과 표시 영역 -->
+        <section class="result-section">
+            <div class="result-header">
+                <h2>📄 생성 결과</h2>
+                <div class="action-buttons" id="actionButtons" style="display: none;">
+                    <button type="button" id="copyBtn" class="btn btn-secondary">📋 내용 복사</button>
+                    <button type="button" id="downloadBtn" class="btn btn-secondary">💾 Markdown 다운로드</button>
+                </div>
+            </div>
+
+            <!-- 로딩 상태 표시 -->
+            <div id="loadingIndicator" class="loading-box" style="display: none;">
+                <div class="spinner"></div>
+                <p>Gemini AI가 이력서와 포트폴리오를 작성 중입니다...<br><small>약 5~10초 정도 소요될 수 있습니다.</small></p>
+            </div>
+
+            <!-- 오류 메시지 표시 -->
+            <div id="errorMessage" class="alert alert-error" style="display: none;"></div>
+
+            <!-- 결과 텍스트 출력 영역 -->
+            <div id="resultPlaceholder" class="result-placeholder">
+                왼쪽 폼에 정보를 입력하고 <strong>[생성하기]</strong> 버튼을 누르면 여기에 AI 이력서와 포트폴리오 초안이 표시됩니다.
+            </div>
+            <textarea id="resultOutput" class="result-textarea" readonly style="display: none;"></textarea>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 AI Resume & Portfolio Builder. Powered by Flask & Google Gemini.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

@@ -127,6 +127,11 @@ def manifest():
     response.headers['Content-Type'] = 'application/manifest+json'
     return response
 
+@app.route('/static/<path:filename>')
+def custom_static(filename):
+    """정적 에셋(CSS, JS, 이미지 등)을 명시적으로 서빙합니다."""
+    return send_from_directory(app.static_folder, filename)
+
 @app.route('/')
 @app.route('/api')
 @app.route('/api/index')

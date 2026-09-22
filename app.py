@@ -1,6 +1,6 @@
 import os
 import logging
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory, make_response
 from dotenv import load_dotenv
 import google.generativeai as genai
 
@@ -13,7 +13,13 @@ logging.basicConfig(
 # .env 파일 로드
 load_dotenv()
 
-app = Flask(__name__)
+# Vercel Serverless 및 로컬 환경 모두에서 정적/템플릿 경로를 안전하게 보장
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app = Flask(
+    __name__,
+    template_folder=os.path.join(BASE_DIR, 'templates'),
+    static_folder=os.path.join(BASE_DIR, 'static')
+)
 
 # Gemini API Key 설정
 api_key = os.getenv("GEMINI_API_KEY")
@@ -102,6 +108,20 @@ def build_prompt(name, job_title, experience, projects, tone, prompt_type, resum
 """
 
     return f"{instruction}\n\n{base_info}\n\n위 원칙에 따라 이력서와 포트폴리오를 작성해 주세요."
+
+@app.route('/sw.js')
+def service_worker():
+    """PWA Service Worker를 루트 스코프(/)로 서빙합니다."""
+    response = make_response(send_from_directory(app.static_folder, 'sw.js'))
+    response.headers['Content-Type'] = 'application/javascript'
+    return response
+
+@app.route('/manifest.json')
+def manifest():
+    """PWA Web App Manifest를 서빙합니다."""
+    response = make_response(send_from_directory(app.static_folder, 'manifest.json'))
+    response.headers['Content-Type'] = 'application/manifest+json'
+    return response
 
 @app.route('/')
 def index():

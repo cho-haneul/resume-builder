@@ -110,6 +110,8 @@ def build_prompt(name, job_title, experience, projects, tone, prompt_type, resum
     return f"{instruction}\n\n{base_info}\n\n위 원칙에 따라 이력서와 포트폴리오를 작성해 주세요."
 
 @app.route('/sw.js')
+@app.route('/api/sw.js')
+@app.route('/api/index/sw.js')
 def service_worker():
     """PWA Service Worker를 루트 스코프(/)로 서빙합니다."""
     response = make_response(send_from_directory(app.static_folder, 'sw.js'))
@@ -117,6 +119,8 @@ def service_worker():
     return response
 
 @app.route('/manifest.json')
+@app.route('/api/manifest.json')
+@app.route('/api/index/manifest.json')
 def manifest():
     """PWA Web App Manifest를 서빙합니다."""
     response = make_response(send_from_directory(app.static_folder, 'manifest.json'))
@@ -124,11 +128,15 @@ def manifest():
     return response
 
 @app.route('/')
+@app.route('/api')
+@app.route('/api/index')
 def index():
     """메인 화면을 렌더링합니다."""
     return render_template('index.html')
 
 @app.route('/generate', methods=['POST'])
+@app.route('/api/generate', methods=['POST'])
+@app.route('/api/index/generate', methods=['POST'])
 def generate():
     """사용자 입력을 받아 Gemini API를 호출하고 결과를 반환하는 REST API Route"""
     try:
